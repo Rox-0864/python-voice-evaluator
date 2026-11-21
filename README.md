@@ -22,6 +22,9 @@ Los errores corregidos durante la integración están en la **[guía de estudio]
 - **Evaluación** semántica con LLM (rúbrica 0–100) o por palabras clave.
 - **Feedback por voz** con 3 proveedores de TTS (ElevenLabs, OpenAI, gTTS).
 - **Avatar animado** opcional (D-ID) que "habla" el feedback.
+- **Dos modos**: Práctica (feedback inmediato) y **Examen** (con temporizador y
+  resultado al final).
+- **Banco de preguntas** local (JSON) o desde **Firebase/Firestore**.
 - **Historial** de resultados + **exportación CSV y PDF**.
 - **Funciona sin pagar**: sin API keys, usa Google STT + gTTS + evaluación por
   palabras clave.
@@ -43,6 +46,7 @@ python-voice-evaluator/
 │   ├── tts.py              # texto → voz (ElevenLabs/OpenAI/gTTS)
 │   ├── llm.py              # evaluación con LLM (Groq)
 │   ├── evaluator.py        # puntaje por palabras clave
+│   ├── exam.py             # lógica del modo examen (selección + resumen)
 │   ├── avatar.py           # avatar D-ID
 │   ├── export.py           # CSV/PDF
 │   └── store.py            # persistencia del historial
@@ -83,6 +87,11 @@ funciona con los proveedores gratuitos.
 ```bash
 streamlit run app.py
 ```
+
+## Despliegue en Streamlit Cloud
+
+La app está lista para desplegarse en Streamlit Community Cloud. El paso a paso
+(secretos, Firebase, notas) está en **[DEPLOY.md](DEPLOY.md)**.
 
 ## Validar el banco de preguntas
 
