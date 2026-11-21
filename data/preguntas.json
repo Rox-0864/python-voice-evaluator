@@ -1,0 +1,98 @@
+[
+  {
+    "id": "fund-01",
+    "categoria": "Fundamentos",
+    "dificultad": "basico",
+    "pregunta": "¿Qué instrucción se usa para imprimir un mensaje en la consola en Python?",
+    "palabras_clave": ["print", "imprimir", "consola"],
+    "contexto_ideal": "La función print() muestra texto o valores en la consola. Acepta múltiples argumentos separados por comas y permite formatear con f-strings."
+  },
+  {
+    "id": "fund-02",
+    "categoria": "Fundamentos",
+    "dificultad": "basico",
+    "pregunta": "¿Cómo se declara una variable que guarde el número 10 en Python?",
+    "palabras_clave": ["x", "10", "asignar", "="],
+    "contexto_ideal": "Se escribe `x = 10`. Python tiene tipado dinámico: no se declara el tipo, se infiere del valor asignado."
+  },
+  {
+    "id": "fund-03",
+    "categoria": "Fundamentos",
+    "dificultad": "basico",
+    "pregunta": "¿Cuáles son los tipos de datos básicos que conocés en Python?",
+    "palabras_clave": ["int", "float", "str", "bool", "list", "entero", "cadena", "booleano"],
+    "contexto_ideal": "Los tipos básicos son int (enteros), float (decimales), str (cadenas), bool (True/False) y los contenedores list, tuple, dict y set."
+  },
+  {
+    "id": "ctrl-01",
+    "categoria": "Estructuras de control",
+    "dificultad": "basico",
+    "pregunta": "¿Qué estructura usarías para ejecutar un bloque solo si se cumple una condición?",
+    "palabras_clave": ["if", "else", "elif", "condición"],
+    "contexto_ideal": "La estructura condicional if/elif/else ejecuta un bloque según se cumpla una condición booleana."
+  },
+  {
+    "id": "ctrl-02",
+    "categoria": "Estructuras de control",
+    "dificultad": "intermedio",
+    "pregunta": "¿Qué diferencia hay entre un bucle `for` y un bucle `while`?",
+    "palabras_clave": ["for", "while", "iterar", "condición", "repeticiones"],
+    "contexto_ideal": "El `for` itera sobre una secuencia conocida (lista, rango) un número definido de veces; el `while` repite mientras una condición sea verdadera, útil cuando no se sabe de antemano cuántas iteraciones habrá."
+  },
+  {
+    "id": "ctrl-03",
+    "categoria": "Estructuras de control",
+    "dificultad": "intermedio",
+    "pregunta": "¿Para qué sirve la instrucción `break` dentro de un bucle?",
+    "palabras_clave": ["break", "salir", "interrumpir", "detener"],
+    "contexto_ideal": "`break` interrumpe inmediatamente la ejecución del bucle y sale de él, aunque la condición del bucle siga siendo verdadera."
+  },
+  {
+    "id": "func-01",
+    "categoria": "Funciones",
+    "dificultad": "basico",
+    "pregunta": "¿Con qué palabra clave se define una función en Python?",
+    "palabras_clave": ["def", "función", "parámetros"],
+    "contexto_ideal": "Con la palabra clave `def`, seguida del nombre, paréntesis con parámetros y dos puntos. Ejemplo: `def saludar(nombre):`."
+  },
+  {
+    "id": "func-02",
+    "categoria": "Funciones",
+    "dificultad": "intermedio",
+    "pregunta": "¿Qué hace la palabra clave `return` dentro de una función?",
+    "palabras_clave": ["return", "devolver", "valor", "resultado"],
+    "contexto_ideal": "`return` devuelve un valor al punto donde se llamó la función y termina su ejecución. Si no hay return, la función devuelve None."
+  },
+  {
+    "id": "data-01",
+    "categoria": "Estructuras de datos",
+    "dificultad": "basico",
+    "pregunta": "¿Qué diferencia hay entre una lista y una tupla en Python?",
+    "palabras_clave": ["lista", "tupla", "mutable", "inmutable", "corchetes", "paréntesis"],
+    "contexto_ideal": "La lista es mutable (se puede modificar) y se define con corchetes []; la tupla es inmutable y se define con paréntesis (). Las tuplas son más livianas y se usan para datos que no deben cambiar."
+  },
+  {
+    "id": "data-02",
+    "categoria": "Estructuras de datos",
+    "dificultad": "intermedio",
+    "pregunta": "¿Qué es un diccionario y cómo se accede a un valor?",
+    "palabras_clave": ["diccionario", "clave", "valor", "llave", "dict"],
+    "contexto_ideal": "Un diccionario es una estructura de pares clave-valor definida con llaves {}. Se accede a un valor con su clave, por ejemplo `persona['nombre']`."
+  },
+  {
+    "id": "poo-01",
+    "categoria": "Programación orientada a objetos",
+    "dificultad": "intermedio",
+    "pregunta": "¿Qué es una clase en Python y cómo se crea una instancia?",
+    "palabras_clave": ["clase", "objeto", "instancia", "__init__", "self"],
+    "contexto_ideal": "Una clase es una plantilla que define atributos y métodos. Se define con `class Nombre:`. Una instancia se crea llamando a la clase como si fuera una función: `objeto = Nombre()`. El método `__init__` inicializa los atributos."
+  },
+  {
+    "id": "poo-02",
+    "categoria": "Programación orientada a objetos",
+    "dificultad": "avanzado",
+    "pregunta": "¿Para qué sirve el parámetro `self` en los métodos de una clase?",
+    "palabras_clave": ["self", "instancia", "atributo", "referencia"],
+    "contexto_ideal": "`self` es una referencia a la instancia actual del objeto. Permite acceder y modificar sus atributos y llamar a otros métodos dentro de la clase."
+  }
+]
