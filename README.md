@@ -38,6 +38,7 @@ python-voice-evaluator/
 │   └── preguntas.json      # banco de preguntas
 ├── src/
 │   ├── questions.py        # carga y validación del banco
+│   ├── firebase_store.py   # banco de preguntas desde Firestore (opcional)
 │   ├── stt.py              # voz → texto (Groq/AssemblyAI/Google)
 │   ├── tts.py              # texto → voz (ElevenLabs/OpenAI/gTTS)
 │   ├── llm.py              # evaluación con LLM (Groq)
@@ -75,6 +76,7 @@ funciona con los proveedores gratuitos.
 | ElevenLabs | `ELEVENLABS_API_KEY` | TTS de alta calidad |
 | OpenAI | `OPENAI_API_KEY` | TTS alternativo |
 | D-ID | `DID_API_KEY` | Avatar animado |
+| Firebase | `FIREBASE_SERVICE_ACCOUNT` (o `_PATH`) | Banco de preguntas desde Firestore |
 
 ## Ejecución
 
@@ -126,6 +128,37 @@ Cada pregunta en `data/preguntas.json` tiene:
 
 Agregá más preguntas editando el JSON. `scripts/check_questions.py` valida su
 estructura.
+
+### Banco de preguntas desde Firebase (opcional)
+
+Podés servir las preguntas desde **Firestore** (colección `cursos`), en lugar
+del JSON local. Estructura esperada:
+
+```
+cursos/<curso_id> -> {
+  "titulo": "Curso de Python",
+  "capitulos": {
+    "cap_01": {
+      "titulo": "Fundamentos",
+      "evaluacion": {
+        "instructor_pregunta": "¿...?",
+        "contexto_respuesta": "respuesta ideal...",
+        "palabras_clave": ["print", "consola"]   // opcional
+      }
+    }
+  }
+}
+```
+
+Para activarlo:
+
+1. Configurá `FIREBASE_SERVICE_ACCOUNT` (JSON de la cuenta de servicio) o
+   `FIREBASE_SERVICE_ACCOUNT_PATH` (ruta a un archivo no versionado).
+2. En `config.py`, seteá `question_source = "firebase"` (o dejá `"auto"`) y
+   `firebase_course_id` con el id del documento.
+
+La app detecta la fuente automáticamente y cae al JSON local si Firebase no
+está configurado o falla.
 
 ---
 

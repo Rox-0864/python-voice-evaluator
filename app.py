@@ -19,7 +19,7 @@ from datetime import datetime
 import streamlit as st
 
 from config import Config, get_secret
-from src import avatar, evaluator, export, llm, questions as qbank, store, stt, tts
+from src import avatar, evaluator, export, firebase_store, llm, questions as qbank, store, stt, tts
 
 # ------------------------------------------------------------------ Configuración
 st.set_page_config(page_title="Evaluador Oral de Python", layout="wide")
@@ -42,7 +42,28 @@ st.sidebar.caption(
 did_key = get_secret("DID_API_KEY")
 
 # ------------------------------------------------------------------ Banco de preguntas
-preguntas = qbank.load_questions(cfg.questions_path)
+def _cargar_preguntas(cfg, resolved):
+    """Carga preguntas desde Firebase (si está configurado) o del JSON local."""
+    if resolved["question_source"] == "firebase":
+        try:
+            sa = cfg.get_firebase_service_account()
+            db = firebase_store.init_firestore(sa)
+            preguntas = firebase_store.load_questions_from_firestore(
+                db, cfg.firebase_course_id
+            )
+            if preguntas:
+                return preguntas, "firebase"
+            st.sidebar.warning(
+                "Firebase configurado pero sin preguntas para el curso. "
+                "Usando el banco local (JSON)."
+            )
+        except Exception as exc:  # noqa: BLE001
+            st.sidebar.warning(f"No se pudo conectar a Firebase ({exc}). Usando JSON local.")
+    return qbank.load_questions(cfg.questions_path), "json"
+
+
+preguntas, fuente_preguntas = _cargar_preguntas(cfg, resolved)
+st.sidebar.caption(f"📚 Banco de preguntas: `{fuente_preguntas}`")
 categorias = ["Todas"] + qbank.categories(preguntas)
 categoria_elegida = st.sidebar.selectbox("Categoría", categorias)
 preguntas_filtradas = qbank.filter_by_category(

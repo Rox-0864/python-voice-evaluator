@@ -50,9 +50,27 @@ class Config:
     llm_model: str = "llama3-8b-8192"
     tts_voice_id: str = "l1zE9xgNpUTaQCZzpNJa"
 
+    # Fuente del banco de preguntas
+    question_source: str = "auto"      # "json" | "firebase" | "auto"
+    firebase_course_id: str = ""       # id del documento en la colección "cursos"
+
     # Rutas
     questions_path: Path = QUESTIONS_PATH
     results_path: Path = RESULTS_PATH
+
+    def has_firebase(self) -> bool:
+        """True si hay credenciales de Firebase configuradas."""
+        return bool(
+            get_secret("FIREBASE_SERVICE_ACCOUNT")
+            or get_secret("FIREBASE_SERVICE_ACCOUNT_PATH")
+        )
+
+    def get_firebase_service_account(self):
+        """Devuelve las credenciales de Firebase (dict, JSON string o path)."""
+        acct = get_secret("FIREBASE_SERVICE_ACCOUNT")
+        if acct:
+            return acct
+        return get_secret("FIREBASE_SERVICE_ACCOUNT_PATH")
 
     def resolve(self) -> dict:
         """Devuelve los proveedores efectivos según las API keys disponibles.
@@ -77,9 +95,18 @@ class Config:
         if mode in ("llm", "auto") and not has_groq:
             mode = "keywords"
 
+        # Fuente de preguntas efectiva.
+        source = self.question_source
+        has_fb = self.has_firebase()
+        if source == "firebase" and not has_fb:
+            source = "json"
+        elif source == "auto":
+            source = "firebase" if (has_fb and self.firebase_course_id) else "json"
+
         return {
             "stt": stt,
             "tts": tts,
             "eval_mode": mode,
             "avatar_disponible": has_did,
+            "question_source": source,
         }
